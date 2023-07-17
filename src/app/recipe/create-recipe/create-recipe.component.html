@@ -1,0 +1,148 @@
+<div class="container-fluid p-3">
+  <h1 class="mt-5 mb-5 text-center">Create A Recipe</h1>
+
+  <form class="formClass" [formGroup]="addForm">
+    <div class="row mb-5 p-3">
+      <div class="col-lg-6 d-flex flex-column justify-content-between">
+        <div class="form-floating mb-3">
+          <input
+            formControlName="title"
+            type="text"
+            class="form-control"
+            id="floatingInput"
+            placeholder="name@example.com"
+          />
+          <label for="floatingInput">Name of The Recipe</label>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input
+            formControlName="cooking_time"
+            type="tel"
+            class="form-control"
+            id="floatingPassword"
+            placeholder="Password"
+          />
+          <label for="floatingPassword">Time Taken To Make In Minutes</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+            formControlName="source_url"
+            type="text"
+            class="form-control"
+            id="floatingPassword"
+            placeholder="Password"
+          />
+          <label for="floatingPassword">Source Url</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+            formControlName="image_url"
+            type="text"
+            class="form-control"
+            id="floatingPassword"
+            placeholder="Password"
+          />
+          <label for="floatingPassword">Image Url</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+            value="4"
+            disabled="true"
+            type="text"
+            class="form-control"
+            id="floatingPublisher"
+            placeholder="Servings"
+          />
+          <label for="floatingPublisher">Servings</label>
+        </div>
+      </div>
+
+      <div class="col-lg-6 text-center">
+        <div class="item_img">
+          <img
+            *ngIf="!this.addForm.get('image_url')?.invalid"
+            [src]="this.addForm.get('image_url')?.value"
+            [alt]="this.addForm.get('title')?.value"
+            class=""
+          />
+          <img
+            *ngIf="this.addForm.get('image_url')?.invalid"
+            src="./../../../assets/images/empty_image/1.jpg"
+            alt="No product Image Found"
+            width="500px"
+          />
+        </div>
+      </div>
+
+      <div class="col-12 mt-5">
+        <div class="alert alert_color text-center" role="alert">
+          Please Provide the Ingredients for 4 Servings
+        </div>
+        <div class="formArray" formArrayName="ingredients">
+          <div
+            class="d-md-flex justify-content-between gap-3 align-items-center ingClass p-1 mb-2"
+            *ngFor="let num of ingControls; let i = index"
+            [formGroupName]="i"
+          >
+            <div class="d-flex gap-1 gap-md-3">
+              <div class="form-floating flex-grow-1">
+                <input
+                  formControlName="quantity"
+                  type="number"
+                  class="form-control"
+                  id="floatingPassword"
+                  placeholder="Password"
+                />
+                <label for="floatingPassword">Quantity</label>
+              </div>
+              <div class="form-floating flex-grow-1">
+                <input
+                  formControlName="unit"
+                  type="text"
+                  class="form-control"
+                  id="floatingUnit"
+                  placeholder="Password"
+                />
+                <label for="floatingUnit">Unit</label>
+              </div>
+            </div>
+            <div class="flex-grow-1 mt-1 mt-md-0 d-flex align-items-center gap-1">
+              <div class="form-floating flex-grow-1">
+                <input
+                  formControlName="description"
+                  type="text"
+                  class="form-control"
+                  id="floatingDescription"
+                  placeholder="Password"
+                />
+                <label for="floatingDescription">Description</label>
+              </div>
+              <button (click)="onRemoveIngredient(i)" class="btn btn-danger">
+                <i class="fa-solid fa-minus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mb-5">
+          <button (click)="onAddIngredient()" class="btn btn-outline-success">
+            <i class="fa-solid fa-plus"></i> Add Ingredients
+          </button>
+        </div>
+
+        <div class="d-flex justify-content-center gap-5 mt-5">
+          <button style="width: 6rem" class="btn btn-warning" (click)="clear()">
+            Clear
+          </button>
+          <button
+            style="width: 6rem"
+            (click)="create()"
+            class="btn btn-primary"
+          >
+            Create
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,40 @@
+<div class="container-fluid p-sm-3" style="min-height: 100vh">
+  <div class="">
+    <div *ngIf="errorMsg">
+      <div class="text-center text-danger fs-2 m-5" style="height: 100vh">
+        {{ errorMsg }} ☹️
+      </div>
+    </div>
+    <div>
+      <h2 class="m-5">User : {{ recipes.name }}</h2>
+      <h3 class="m-4 ms-5">Recipes Created : {{ recipes.recipe?.length }}</h3>
+      <div *ngIf="recipes.recipe?.length">
+        <div class="row m-sm-5 m-2 gy-3">
+          <div
+            class="col-xl-3 col-lg-4 col-sm-6 d-flex justify-content-center"
+            *ngFor="let recipe of recipes?.recipe"
+          >
+            <div>
+              <a [routerLink]="'/authenticated/' + recipe._id">
+                <div class="text-center">
+                  <img
+                    class="rounded"
+                    style="max-height: 225px; min-height: 225px;"
+                    [src]="recipe.image_url"
+                    [alt]="recipe.title"
+                  />
+                </div>
+                <div class="text-center p-3">
+                  <h5>
+                    {{ recipe.title.slice(0, 20)
+                    }}<span *ngIf="recipe.title.slice(20, -1)">...</span>
+                  </h5>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

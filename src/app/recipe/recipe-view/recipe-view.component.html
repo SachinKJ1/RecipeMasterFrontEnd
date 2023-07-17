@@ -1,0 +1,83 @@
+<div class="container-fluid">
+  <div class="p-sm-3 pb-2">
+    <div *ngIf="errorMsg">
+      <div class="text-center text-danger fs-2 m-5">
+        {{ errorMsg }}
+      </div>
+    </div>
+    <div class="text-center mt-5 mb-4">
+      <h1>{{ recipe.title }}</h1>
+    </div>
+    <div class="row p-sm-3">
+      <div class="col-xl-6 d-flex align-items-center justify-content-center">
+        <img
+          [src]="recipe.image_url"
+          [alt]="recipe.title"
+          class="rounded"
+          style="max-height: 30rem; min-width: 100%; max-width: 100%;"
+        />
+      </div>
+      <div class="col-xl-6">
+        <div class="d-flex justify-content-between mt-3">
+          <h5 >BY : {{ recipe.createdBy?.name }}</h5>
+          <h6>Cooking Time : {{ recipe.cooking_time }} Minutes</h6>
+        </div>
+
+        <p style="text-align: justify">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. A repellendus
+          iusto molestias quas odio! Excepturi soluta dignissimos fugiat fugit
+          harum praesentium iusto architecto reiciendis, nostrum quas illum
+          sapiente nesciunt adipisci! In eius perferendis aliquam atque sequi
+          aut illum maiores, aliquid alias possimus praesentium error odio
+          reprehenderit minima. Doloremque, quisquam totam sed amet, nesciunt
+          est dolorum sequi sapiente voluptatum aut incidunt. Eos doloremque
+          delectus repellat hic fugiat mollitia natus dignissimos nostrum non
+          numquam quos, et, consequuntur eius repellendus blanditiis facilis?
+          Hic autem ullam rerum, eius corrupti consequuntur obcaecati numquam
+          adipisci qui? Dolorem similique nulla rem modi maxime deserunt labore
+          ab tempora natus praesentium, harum pariatur vero, omnis reiciendis
+          cum dicta eius. Dolores obcaecati facere ipsum necessitatibus aliquam
+          doloremque eius eum nihil? Reprehenderit eius modi inventore esse quia
+          nulla iusto doloremque illo vitae porro dolores totam maiores
+          assumenda, architecto officia et voluptatibus a eligendi molestias
+          quisquam aliquam fugit harum animi! Dolorem, alias. Lorem ipsum dolor,
+          sit amet consectetur adipisicing elit. Iure quibusdam amet at dolorum
+          accusamus! Qui provident, alias fugiat quam blanditiis inventore
+          tenetur ullam? Nesciunt assumenda ea error. Eum, totam ea. Lorem ipsum
+          dolor sit amet, consectetur adipisicing elit. Eveniet iure maxime a
+          veniam quae?
+        </p>
+        <a [href]="recipe.source_url" target="_blank"
+          >Source Url Of This Recipe</a
+        >
+      </div>
+    </div>
+
+    <div class="row gy-3 mt-4">
+      <div class="text-center fs-2 mb-3">
+       <div> Ingredients for Servings :</div>
+       <div>
+          <button class="btn btn-danger" (click)="subIngredients()">
+            <i class="fa-solid fa-minus"></i>
+          </button>
+          {{ recipe.servings }}
+          <button class="btn btn-success" (click)="addIngredients()">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+       </div>
+      </div>
+
+      <div
+        class="col-xl-4 col-md-6 d-flex justify-content-center"
+        *ngFor="let ingredient of recipe.ingredients"
+      >
+        <div style="width: 90%" class="ingredients_color rounded p-3 d-flex  justify-content-center align-items-center">
+          <div class="">
+            {{ ingredient.quantity | number : "1.0-2" }} {{ ingredient.unit }}
+            {{ ingredient.description }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

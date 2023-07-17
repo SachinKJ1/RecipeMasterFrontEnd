@@ -1,0 +1,135 @@
+<app-header></app-header>
+<div
+  class="container-fluid d-flex align-items-center justify-content-center background_image"
+  style="min-height: 95vh"
+>
+  <div class="rounded-3 shadow p-4 sign_container" style="width: 30rem">
+    <div class="fs-2 text-center mt-4 mb-4 text-light">Create An Account</div>
+    <form [formGroup]="signUpForm" class="formClass">
+      <div class="form-floating mb-3">
+        <input
+          formControlName="email"
+          type="email"
+          class="form-control"
+          id="floatingInput"
+          placeholder="name@example.com"
+        />
+        <label
+          for="floatingInput"
+          [ngClass]="{
+            'text-danger':
+              signUpForm.get('email')?.invalid &&
+              signUpForm.get('email')?.touched
+          }"
+          >Email address
+          <span
+            *ngIf="
+              signUpForm.get('email')?.invalid &&
+              signUpForm.get('email')?.touched
+            "
+            class="text-danger"
+          >
+            Invalid!</span
+          >
+
+          <span
+            *ngIf="
+              signUpForm.get('email')?.errors?.['nonUniqueEmail']
+            "
+            class="text-danger"
+          >
+            Already Used In Another Account</span
+          >
+        </label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          formControlName="name"
+          type="text"
+          class="form-control"
+          id="floatingName"
+          placeholder="name@example.com"
+        />
+        <label
+          for="floatingName"
+          [ngClass]="{
+            'text-danger':
+              signUpForm.get('name')?.invalid && signUpForm.get('name')?.touched
+          }"
+          >Name
+          <span
+            *ngIf="
+              signUpForm.get('name')?.invalid && signUpForm.get('name')?.touched
+            "
+            class="text-danger"
+          >
+           Must Be At least 4 letters Long</span
+          ></label
+        >
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          formControlName="password"
+          type="password"
+          class="form-control"
+          id="floatingPassword"
+          placeholder="Password"
+        />
+        <label
+          for="floatingPassword"
+          [ngClass]="{
+            'text-danger':
+              signUpForm.get('password')?.invalid &&
+              signUpForm.get('password')?.touched
+          }"
+          >Password
+          <span
+            *ngIf="
+              signUpForm.get('password')?.invalid &&
+              signUpForm.get('password')?.touched
+            "
+            class="text-danger"
+          >
+            Must Contain 8 Letters</span
+          ></label
+        >
+      </div>
+      <div class="form-floating">
+        <input
+          formControlName="passwordConfirm"
+          type="password"
+          class="form-control"
+          id="floatingPasswordConfirm"
+          placeholder="Password"
+        />
+        <label
+          for="floatingPasswordConfirm"
+          [ngClass]="{
+            'text-danger':
+              signUpForm.get('passwordConfirm')?.invalid &&
+              signUpForm.get('passwordConfirm')?.touched
+          }"
+          >Password Confirm
+          <span
+            *ngIf="
+              signUpForm.get('passwordConfirm')?.invalid &&
+              signUpForm.get('passwordConfirm')?.touched
+            "
+            class="text-danger"
+            >Must Contain 8 Letters</span
+          ></label
+        >
+      </div>
+
+      <div class="p-4 text-center">
+        <button (click)="signUp()" class="btn btn-success">
+          Create Account
+        </button>
+      </div>
+      <p class="text-center fw-bold">
+        Already Have An Account? <a routerLink="/auth/signIn">Sign In</a> here
+      </p>
+    </form>
+  </div>
+</div>
+<app-footer></app-footer>

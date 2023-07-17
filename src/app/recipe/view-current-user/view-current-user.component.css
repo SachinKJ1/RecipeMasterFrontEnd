@@ -1,0 +1,68 @@
+.sidebar_section {
+  width: 20rem;
+  background-color: #abcc7a;
+  position: sticky;
+  font-size: 1.5rem;
+  height: 92vh;
+  background-image: linear-gradient(to bottom right, #d6ff99, #abcc7a);
+}
+.main_section {
+  width: 80%;
+}
+.side_bar_links {
+  text-decoration: none;
+  color: black;
+  transition: all 100ms ease-in-out;
+}
+.side_bar_links:hover {
+  border-left: 5px solid black !important;
+}
+.user_Image {
+  border-radius: 50%;
+  width: 300px;
+  height: 300px;
+}
+.image_upload_label {
+  position: absolute;
+  bottom: 22%;
+  left: 78%;
+  background-color: white;
+  border-radius: 50%;
+  font-size: large;
+}
+ 
+.Profile_Image {
+  width: 100%;
+  min-height: 30rem;
+  max-height: 100%;
+  object-fit: cover;
+  overflow: hidden;
+}
+.name {
+  font-size: 2rem;
+}
+
+@media (max-width: 1000px) {
+  .name {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 750px) {
+  .name {
+    font-size: 1.25rem;
+  }
+  .main_section {
+    width: 100%;
+    padding: 1rem;
+  }.sidebar_section{
+    width: 100%;
+    text-align: center;
+    height: 70vh;
+  }
+}
+@media (max-width: 600px) {
+  .name {
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,42 @@
+<div class="container-fluid" style="min-height: 100vh; overflow-x: auto">
+  <div *ngIf="errorMsg">
+    <p class="fs-2 text-danger text-center p-5">{{ errorMsg }}</p>
+  </div>
+  <h1 class="p-4 text-center">Users</h1>
+  
+  <table class="table table-striped text-center table-responsive" style="max-width: 100%; border-top:1px solid ;">
+    <thead>
+      <tr>
+        <th scope="col">SL.NO</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Recipes</th>
+        <th scope="col">Bookmark</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users; let i = index">
+        <th style="vertical-align: middle" scope="row">{{ i + 1 }}</th>
+        <td style="vertical-align: middle">{{ user.name }}</td>
+        <td style="vertical-align: middle">{{ user.email }}</td>
+        <td style="vertical-align: middle" *ngIf="user.recipe?.length === 0">
+          {{ user.recipe?.length }}
+        </td>
+        <td style="vertical-align: middle" *ngIf="user.recipe?.length !== 0">
+          <a
+            style="text-decoration: none"
+            [routerLink]="'usersRecipe/' + user?._id"
+            >{{ user.recipe?.length }}</a
+          >
+        </td>
+        <td style="vertical-align: middle">{{ user.bookmarks?.length }}</td>
+        <td style="vertical-align: middle">
+          <button (click)="deleteUser(user._id)" class="btn btn-danger">
+            Delete User
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

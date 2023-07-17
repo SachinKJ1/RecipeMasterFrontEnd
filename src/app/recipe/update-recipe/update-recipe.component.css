@@ -1,0 +1,31 @@
+.alert_color {
+    background-color: #deffad;
+    font-size: 1.3rem;
+  }
+  .ng-invalid.ng-touched {
+    border: 1px solid red;
+  }
+  .ng-valid.ng-touched {
+    border: 1px solid greenyellow;
+  }
+  .formClass.ng-invalid.ng-touched,
+  .ingClass.ng-invalid.ng-touched,
+  .formArray.ng-invalid.ng-touched {
+    border: none;
+  }
+  .formClass.ng-valid.ng-touched,
+  .ingClass.ng-valid.ng-touched,
+  .formArray.ng-valid.ng-touched {
+    border: none;
+  }
+  .item_img img {
+    width: 100%;
+    max-height: 500px;
+    object-fit: cover;
+    overflow: hidden;
+  }
+  .ingClass {
+    background-color: #deffad;
+    border: 1px solid #deffad;
+    border-radius: 4px;
+  }

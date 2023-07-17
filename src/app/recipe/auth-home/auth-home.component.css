@@ -1,0 +1,26 @@
+.card_color {
+  background-color: #f7ffeb;
+}
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.link_hover {
+  color: black;
+}
+.link_hover:hover {
+  color: rgb(16, 128, 233);
+}
+ 
+.sort_btn_color {
+  background-color: #d6ff99;
+}
+
+@media(max-width:600px) {
+  .recipes_heading{
+    font-size: 2.5rem;
+  }
+}

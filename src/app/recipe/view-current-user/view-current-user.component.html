@@ -1,0 +1,283 @@
+<div class="d-flex flex-md-row flex-column-reverse">
+  <div class="sidebar_section d-flex flex-column justify-content-between">
+    <div class="d-flex flex-column gap-3 mt-5">
+      <a class="side_bar_links ps-2" routerLink="/authenticated/create"
+        >Create Recipe</a
+      >
+      <a class="side_bar_links ps-2" routerLink="/authenticated/manage"
+        >Your Recipes : {{ user.recipe?.length }}</a
+      >
+      <a class="side_bar_links ps-2" routerLink="/authenticated/bookmarks"
+        >Your Bookmarks : {{ user.bookmarks?.length }}</a
+      >
+      <a
+        *ngIf="user?.role === 'admin'"
+        class="side_bar_links ps-2"
+        routerLink="/admin"
+        >Admin Route</a
+      >
+    </div>
+    <div class="d-flex flex-column gap-2 mb-5 align-items-center">
+      <button style="width: 12rem" class="btn btn-primary" (click)="logout()">
+        Logout
+      </button>
+      <button
+        style="width: 12rem"
+        class="btn btn-warning"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+      >
+        Change Password
+      </button>
+      <button
+        style="width: 12rem"
+        class="btn btn-danger"
+        (click)="deleteAccount()"
+      >
+        Delete Account
+      </button>
+    </div>
+  </div>
+  <div class="main_section d-flex align-items-center justify-content-center">
+    <div>
+      <div class="text-center position-relative">
+        <img class="user_Image" [src]="user.photo" alt="userImage" />
+        <label for="photo" class="btn image_upload_label">
+          <i class="fa-solid fa-camera"></i
+        ></label>
+
+        <div>
+          <input
+            #myInput
+            type="file"
+            accept="image/*"
+            id="photo"
+            name="photo"
+            class="form-control"
+            style="display: none"
+            (change)="fileSelected($event)"
+          />
+        </div>
+      </div>
+      <div class="text-center">
+        <button
+          class="btn btn-success mt-2"
+          (click)="uploadPicture()"
+          *ngIf="newImageSelected"
+        >
+          Upload The Selected Picture
+        </button>
+      </div>
+      <div class="text-center">
+        <div class="name mt-3">
+          {{ user.name | titlecase }}
+          <button
+            class="btn btn-outline-dark"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdropName"
+          >
+            <i class="fa-solid fa-pen"></i>
+          </button>
+        </div>
+        <div class="name">{{ user.email }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Change Password</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form action="" [formGroup]="passwordForm">
+          <div class="form-floating mb-3">
+            <input
+              formControlName="passwordCurrent"
+              type="password"
+              class="form-control"
+              id="floatingpasswordCurrent"
+              placeholder="passwordCurrent"
+            />
+            <label
+              for="floatingpasswordCurrent"
+              [ngClass]="{
+                'text-danger':
+                  passwordForm.get('passwordCurrent')?.invalid &&
+                  passwordForm.get('passwordCurrent')?.touched
+              }"
+              >Current Password
+              <span
+                *ngIf="
+                  passwordForm.get('passwordCurrent')?.invalid &&
+                  passwordForm.get('passwordCurrent')?.touched
+                "
+                class="text-danger"
+              >
+                Must Be Atleast 8 Letters Long</span
+              ></label
+            >
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              formControlName="password"
+              type="password"
+              class="form-control"
+              id="floatingPassword"
+              placeholder="Password"
+            />
+            <label
+              for="floatingPassword"
+              [ngClass]="{
+                'text-danger':
+                  passwordForm.get('password')?.invalid &&
+                  passwordForm.get('password')?.touched
+              }"
+              >Password
+              <span
+                *ngIf="
+                  passwordForm.get('password')?.invalid &&
+                  passwordForm.get('password')?.touched
+                "
+                class="text-danger"
+              >
+                Must Contain 8 Letters</span
+              ></label
+            >
+          </div>
+          <div class="form-floating">
+            <input
+              formControlName="passwordConfirm"
+              type="password"
+              class="form-control"
+              id="floatingPasswordConfirm"
+              placeholder="Password"
+            />
+            <label
+              for="floatingPasswordConfirm"
+              [ngClass]="{
+                'text-danger':
+                  passwordForm.get('passwordConfirm')?.invalid &&
+                  passwordForm.get('passwordConfirm')?.touched
+              }"
+              >Password Confirm
+              <span
+                *ngIf="
+                  passwordForm.get('passwordConfirm')?.invalid &&
+                  passwordForm.get('passwordConfirm')?.touched
+                "
+                class="text-danger"
+                >Must Contain 8 Letters</span
+              ></label
+            >
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          [disabled]="
+            passwordForm.invalid ||
+            passwordForm.get('passwordConfirm')?.value !==
+              passwordForm.get('password')?.value
+          "
+          (click)="changePassword()"
+        >
+          Update
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Name Change -->
+<div
+  class="modal fade"
+  id="staticBackdropName"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Change Name</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form action="" [formGroup]="nameChangeForm">
+          <div class="form-floating mb-3">
+            <input
+              formControlName="name"
+              type="text"
+              class="form-control"
+              id="floatingName"
+              placeholder="name"
+            />
+            <label
+              for="floatingName"
+              [ngClass]="{
+                'text-danger':
+                  nameChangeForm.get('name')?.invalid &&
+                  nameChangeForm.get('name')?.touched
+              }"
+              >New Name
+              <span
+                *ngIf="
+                  nameChangeForm.get('name')?.invalid &&
+                  nameChangeForm.get('name')?.touched
+                "
+                class="text-danger"
+              >
+                Must Be Atleast 4 Letters Long</span
+              ></label
+            >
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          [disabled]="nameChangeForm.invalid"
+          (click)="changeName()"
+        >
+          Update
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,76 @@
+<app-header></app-header>
+<div
+  class="container-fluid d-flex align-items-center justify-content-center background_image"
+  style="height: 95vh"
+>
+  <div class="rounded-3 shadow p-4 sign_container" style="width: 30rem">
+    <div class="fs-2 text-center mt-4 mb-4 text-light">Login To Account</div>
+    <form [formGroup]="signInForm">
+      <div class="form-floating mb-3">
+        <input
+          type="email"
+          formControlName="email"
+          class="form-control"
+          id="floatingInput"
+          placeholder="name@example.com"
+        />
+        <label
+          for="floatingInput"
+          [ngClass]="{
+            'text-danger':
+              signInForm.get('email')?.invalid &&
+              signInForm.get('email')?.touched
+          }"
+          >Email address
+          <span
+            *ngIf="
+              signInForm.get('email')?.invalid &&
+              signInForm.get('email')?.touched
+            "
+            class="text-danger"
+          >
+            Invalid Format!</span
+          ></label
+        >
+      </div>
+      <div class="form-floating">
+        <input
+          formControlName="password"
+          type="password"
+          class="form-control"
+          id="floatingPassword"
+          placeholder="Password"
+        />
+        <label
+          for="floatingPassword"
+          [ngClass]="{
+            'text-danger':
+              signInForm.get('password')?.invalid &&
+              signInForm.get('password')?.touched
+          }"
+          >Password
+          <span
+            *ngIf="
+              signInForm.get('password')?.invalid &&
+              signInForm.get('password')?.touched
+            "
+            class="text-danger"
+          >
+            Must Be atleast 8 Characters Letters</span
+          ></label
+        >
+      </div>
+
+      <div class="p-4 text-center">
+        <button class="btn btn-success" (click)="login()">Login</button>
+      </div>
+      <p class="text-center fw-bold">
+        Already Have An Account? <a routerLink="/auth">Sign Up</a> here
+      </p>
+    </form>
+  </div>
+</div>
+
+ 
+
+<app-footer></app-footer>

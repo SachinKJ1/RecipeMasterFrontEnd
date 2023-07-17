@@ -1,0 +1,390 @@
+<app-header></app-header>
+<header>
+  <div class="row m-3 mt-5 mb-5">
+    <div class="col-xl-6 p-3 pt-1 pt-sm-5">
+      <!-- Welcome section -->
+      <div>
+        <h3>Welcome to Recipe Master!</h3>
+        <p style="text-align: justify">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate
+          eaque, reprehenderit pariatur nobis blanditiis incidunt delectus
+          voluptatibus alias recusandae. Ea quia, natus corrupti ex a placeat
+          quod dolores libero. Quod. Lorem ipsum, dolor sit amet consectetur
+          adipisicing elit. Unde, beatae consectetur, repellat, commodi magni
+          ipsam earum laboriosam explicabo quisquam harum numquam nostrum
+          reprehenderit dolorum nemo sit animi nulla odio eligendi? Enim ea cum
+          dolorum nihil quis animi reiciendis reprehenderit qui. Nulla nihil
+          tempore cumque sint dolore dignissimos explicabo, minus cum, maxime
+          velit voluptates ut tempora! Aut facilis commodi atque expedita. Eos
+          quidem modi enim sapiente neque corrupti vero vitae, fugiat quibusdam
+          earum cumque aliquid magnam, nostrum, quae temporibus ex. Quod vero
+          doloribus beatae magnam unde corrupti placeat fuga nostrum cupiditate.
+        </p>
+      </div>
+    </div>
+    <!-- Carousel -->
+    <div class="col-xl-6">
+      <div
+        id="carouselExampleCaptions"
+        class="carousel slide carousel-fade"
+        data-bs-ride="carousel"
+      >
+        <div class="carousel-indicators">
+          <button
+            type="button"
+            data-bs-target="#carouselExampleCaptions"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleCaptions"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleCaptions"
+            data-bs-slide-to="2"
+            aria-label="Slide 3"
+          ></button>
+        </div>
+        <div class="carousel-inner">
+          <div
+            class="carousel-item active rounded overflow-hidden"
+            data-bs-interval=""
+          >
+            <img
+              src="./../../../assets/images/carouselImages/4.jpg"
+              class="d-block w-100"
+              style="max-height: 23rem;min-height: 23rem;"
+              alt="Images"
+            />
+            <div class="carousel-caption d-none d-md-block"></div>
+          </div>
+          <div
+            class="carousel-item rounded overflow-hidden"
+            data-bs-interval=""
+          >
+            <img
+              src="./../../../assets/images/carouselImages/5.jpg"
+              class="d-block w-100"
+              style="max-height: 23rem;min-height: 23rem;"
+              alt="Images"
+            />
+            <div class="carousel-caption d-none d-md-block"></div>
+          </div>
+          <div
+            class="carousel-item rounded overflow-hidden"
+            data-bs-interval=""
+          >
+            <img
+              src="./../../../assets/images/carouselImages/6.jpg"
+              class="d-block w-100"
+              style="max-height: 23rem;min-height: 23rem;"
+              alt="Images"
+            />
+            <div class="carousel-caption d-none d-md-block"></div>
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleCaptions"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleCaptions"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- Recipes -->
+<div class="m-4">
+  <h2 class="">Recipes</h2>
+  <ng-container *ngIf="showEmptyMsg"
+  ><div class="fs-2 text-center m-5" *ngIf="recipes.length === 0">
+    No Recipes match your search ☹️
+  </div></ng-container
+>
+
+  <div class="row gy-5 mt-1">
+    <div *ngIf="errorMsg">
+      <div class="text-center text-danger fs-2 m-5">{{ errorMsg }} ☹️</div>
+    </div>
+    <div
+      class="col-xl-3 col-lg-4 col-sm-6 d-flex justify-content-center"
+      *ngFor="let recipe of recipes"
+    >
+      <div class="card shadow overflow-hidden" style="width: 20rem">
+        <img
+          [src]="recipe.image_url"
+          class="card-img-top"
+          [alt]="recipe.title"
+          style="max-height: 15rem; min-height: 15rem"
+        />
+        <div class="card-body card_color">
+          <div class="mt-2 line-clamp" style="height:1.7rem">
+            <h5 class="card-title text-center">{{ recipe.title }}</h5>
+          </div>
+          <div
+            class="d-flex align-items-center justify-content-between mb-2 mt-2"
+          >
+            <h6>{{ recipe.createdBy?.name }}</h6>
+            <div>
+              <i class="fa-regular fa-clock"></i> :
+              {{ recipe.cooking_time }} min
+            </div>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <button
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+              class="btn btn-success btn_size"
+              style="width: 8rem"
+            >
+              View
+            </button>
+            <button
+              class="btn btn-warning btn_size"
+              style="width: 8rem"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              Bookmark
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center mt-5 mb-5">
+    <!-- pagination -->
+    <nav aria-label="Page navigation example">
+      <ul class="pagination" *ngIf="maxPage >= 4">
+        <li class="page-item">
+          <button
+            [disabled]="curPage === minPage"
+            class="btn btn-outline-success"
+            [attr.data-page]="curPage - minPage"
+            (click)="paginate($event)"
+            aria-label="Previous"
+          >
+            <span [attr.data-page]="curPage - minPage" aria-hidden="true"
+              ><i
+                [attr.data-page]="curPage - minPage"
+                class="fa-solid fa-angles-left"
+              ></i
+            ></span>
+          </button>
+        </li>
+        <li class="page-item" *ngIf="curPage > minPage">
+          <button
+            class="btn btn-outline-success"
+            [attr.data-page]="minPage"
+            (click)="paginate($event)"
+          >
+            {{ minPage }}
+          </button>
+        </li>
+        <li class="page-item" *ngIf="curPage == maxPage">
+          <button
+            class="btn btn-outline-success"
+            [attr.data-page]="curPage - 2"
+            (click)="paginate($event)"
+          >
+            {{ curPage - 2 }}
+          </button>
+        </li>
+        <li
+          class="page-item"
+          *ngIf="curPage !== minPage && curPage !== minPage + 1"
+        >
+          <button
+            class="btn btn-outline-success"
+            [attr.data-page]="curPage - 1"
+            (click)="paginate($event)"
+          >
+            {{ curPage - 1 }}
+          </button>
+        </li>
+        <li class="page-item" *ngIf="curPage < maxPage - 1">
+          <button
+            class="btn btn-outline-success"
+            [attr.data-page]="curPage + 1"
+            (click)="paginate($event)"
+          >
+            {{ curPage + 1 }}
+          </button>
+        </li>
+        <li class="page-item" *ngIf="curPage == 1">
+          <button
+            class="btn btn-outline-success"
+            [attr.data-page]="curPage + 2"
+            (click)="paginate($event)"
+          >
+            {{ curPage + 2 }}
+          </button>
+        </li>
+
+        <li class="page-item" *ngIf="curPage < maxPage">
+          <button
+            class="btn btn-outline-success"
+            [attr.data-page]="maxPage"
+            (click)="paginate($event)"
+          >
+            {{ maxPage }}
+          </button>
+        </li>
+        <li class="page-item">
+          <button
+            [disabled]="curPage === maxPage"
+            class="btn btn-outline-success"
+            [attr.data-page]="curPage + 1"
+            (click)="paginate($event)"
+            aria-label="Next"
+          >
+            <span [attr.data-page]="curPage + 1" aria-hidden="true"
+              ><i
+                [attr.data-page]="curPage + 1"
+                class="fa-solid fa-angles-right"
+              ></i
+            ></span>
+          </button>
+        </li>
+      </ul>
+      <ul class="pagination" *ngIf="maxPage < 4">
+        <li class="page-item">
+          <button
+            [disabled]="curPage === minPage"
+            class="btn btn-outline-success"
+            [attr.data-page]="curPage - minPage"
+            (click)="paginate($event)"
+            aria-label="Previous"
+          >
+            <span [attr.data-page]="curPage - minPage" aria-hidden="true"
+              ><i
+                [attr.data-page]="curPage - minPage"
+                class="fa-solid fa-angles-left"
+              ></i
+            ></span>
+          </button>
+        </li>
+        <li class="page-item" *ngIf="curPage >= 2">
+          <button
+            class="btn btn-outline-success"
+            [attr.data-page]="minPage"
+            (click)="paginate($event)"
+          >
+            {{ minPage }}
+          </button>
+        </li>
+        <li class="page-item" *ngIf="maxPage == 3 && curPage == 3">
+          <button
+            class="btn btn-outline-success"
+            [attr.data-page]="maxPage - 1"
+            (click)="paginate($event)"
+          >
+            {{ maxPage - 1 }}
+          </button>
+        </li>
+
+
+        <li class="page-item" *ngIf="maxPage > 1 && curPage < 2">
+          <button
+            class="btn btn-outline-success"
+            [attr.data-page]="curPage + minPage"
+            (click)="paginate($event)"
+          >
+            {{ curPage + minPage }}
+          </button>
+        </li>
+        <li class="page-item" *ngIf="maxPage == 3 && curPage != 3">
+          <button
+            class="btn btn-outline-success"
+            [attr.data-page]="maxPage"
+            (click)="paginate($event)"
+          >
+            {{ maxPage }}
+          </button>
+        </li>
+
+        <li class="page-item">
+          <button
+            [disabled]="curPage === maxPage"
+            class="btn btn-outline-success"
+            [attr.data-page]="curPage + 1"
+            (click)="paginate($event)"
+            aria-label="Next"
+          >
+            <span [attr.data-page]="curPage + 1" aria-hidden="true"
+              ><i
+                [attr.data-page]="curPage + 1"
+                class="fa-solid fa-angles-right"
+              ></i
+            ></span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+<app-footer></app-footer>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Login To Continue</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        By logging in you will get access to all the features available in this
+        application
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button> -->
+        <button
+          routerLink="/auth"
+          data-bs-dismiss="modal"
+          class="btn btn-success"
+        >
+          Sign Up
+        </button>
+        <button
+          routerLink="/auth/signIn"
+          data-bs-dismiss="modal"
+          class="btn btn-success"
+        >
+          Sign In
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,217 @@
+<div class="container-fluid" style="min-height: 100vh; overflow-x: auto">
+  <div *ngIf="errorMsg">
+    <p class="fs-2 text-danger text-center p-5">{{ errorMsg }}</p>
+  </div>
+  <h1 class="p-4 text-center">Recipes</h1>
+  <table class="table table-striped text-center" style="border-top: 1px solid">
+    <thead>
+      <tr>
+        <th scope="col">SL.NO</th>
+        <th scope="col">Name</th>
+        <th scope="col">Image</th>
+
+        <th scope="col">Created By</th>
+        <th scope="col">Cooking Time</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let recipe of recipes; let i = index">
+        <th style="vertical-align: middle" scope="row">
+          {{ i + 1 + 12 * (curPage - 1) }}
+        </th>
+        <td style="vertical-align: middle">
+          <a [routerLink]="'/admin/' + recipe?.id">{{ recipe.title }}</a>
+        </td>
+        <td style="vertical-align: middle">
+          <img
+            width="50px"
+            height="50px"
+            class="rounded"
+            [src]="recipe?.image_url"
+            alt=""
+          />
+        </td>
+
+        <td style="vertical-align: middle">{{ recipe.createdBy?.name }}</td>
+        <td style="vertical-align: middle">{{ recipe?.cooking_time }}</td>
+
+        <td style="vertical-align: middle">
+          <button class="btn btn-danger" (click)="deleteRecipe(recipe._id)">
+            Delete Recipe
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- pagination -->
+  <div class="d-flex justify-content-center">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination" *ngIf="maxPage >= 4">
+        <li class="page-item">
+          <button
+            [disabled]="curPage === minPage"
+            class="btn btn-outline-success"
+            [attr.data-page]="curPage - minPage"
+            (click)="paginate($event)"
+            aria-label="Previous"
+          >
+            <span [attr.data-page]="curPage - minPage" aria-hidden="true"
+              ><i
+                [attr.data-page]="curPage - minPage"
+                class="fa-solid fa-angles-left"
+              ></i
+            ></span>
+          </button>
+        </li>
+        <li class="page-item" *ngIf="curPage > minPage">
+          <button
+            class="btn btn-outline-success"
+            [attr.data-page]="minPage"
+            (click)="paginate($event)"
+          >
+            {{ minPage }}
+          </button>
+        </li>
+        <li class="page-item" *ngIf="curPage == maxPage">
+          <button
+            class="btn btn-outline-success"
+            [attr.data-page]="curPage - 2"
+            (click)="paginate($event)"
+          >
+            {{ curPage - 2 }}
+          </button>
+        </li>
+        <li
+          class="page-item"
+          *ngIf="curPage !== minPage && curPage !== minPage + 1"
+        >
+          <button
+            class="btn btn-outline-success"
+            [attr.data-page]="curPage - 1"
+            (click)="paginate($event)"
+          >
+            {{ curPage - 1 }}
+          </button>
+        </li>
+        <li class="page-item" *ngIf="curPage < maxPage - 1">
+          <button
+            class="btn btn-outline-success"
+            [attr.data-page]="curPage + 1"
+            (click)="paginate($event)"
+          >
+            {{ curPage + 1 }}
+          </button>
+        </li>
+        <li class="page-item" *ngIf="curPage == 1">
+          <button
+            class="btn btn-outline-success"
+            [attr.data-page]="curPage + 2"
+            (click)="paginate($event)"
+          >
+            {{ curPage + 2 }}
+          </button>
+        </li>
+
+        <li class="page-item" *ngIf="curPage < maxPage">
+          <button
+            class="btn btn-outline-success"
+            [attr.data-page]="maxPage"
+            (click)="paginate($event)"
+          >
+            {{ maxPage }}
+          </button>
+        </li>
+        <li class="page-item">
+          <button
+            [disabled]="curPage === maxPage"
+            class="btn btn-outline-success"
+            [attr.data-page]="curPage + 1"
+            (click)="paginate($event)"
+            aria-label="Next"
+          >
+            <span [attr.data-page]="curPage + 1" aria-hidden="true"
+              ><i
+                [attr.data-page]="curPage + 1"
+                class="fa-solid fa-angles-right"
+              ></i
+            ></span>
+          </button>
+        </li>
+      </ul>
+      <ul class="pagination" *ngIf="maxPage < 4">
+        <li class="page-item">
+          <button
+            [disabled]="curPage === minPage"
+            class="btn btn-outline-success"
+            [attr.data-page]="curPage - minPage"
+            (click)="paginate($event)"
+            aria-label="Previous"
+          >
+            <span [attr.data-page]="curPage - minPage" aria-hidden="true"
+              ><i
+                [attr.data-page]="curPage - minPage"
+                class="fa-solid fa-angles-left"
+              ></i
+            ></span>
+          </button>
+        </li>
+        <li class="page-item" *ngIf="curPage >= 2">
+          <button
+            class="btn btn-outline-success"
+            [attr.data-page]="minPage"
+            (click)="paginate($event)"
+          >
+            {{ minPage }}
+          </button>
+        </li>
+        <li class="page-item" *ngIf="maxPage == 3 && curPage == 3">
+          <button
+            class="btn btn-outline-success"
+            [attr.data-page]="maxPage - 1"
+            (click)="paginate($event)"
+          >
+            {{ maxPage - 1 }}
+          </button>
+        </li>
+
+        <li class="page-item" *ngIf="maxPage > 1 && curPage < 2">
+          <button
+            class="btn btn-outline-success"
+            [attr.data-page]="curPage + minPage"
+            (click)="paginate($event)"
+          >
+            {{ curPage + minPage }}
+          </button>
+        </li>
+        <li class="page-item" *ngIf="maxPage == 3 && curPage != 3">
+          <button
+            class="btn btn-outline-success"
+            [attr.data-page]="maxPage"
+            (click)="paginate($event)"
+          >
+            {{ maxPage }}
+          </button>
+        </li>
+
+        <li class="page-item">
+          <button
+            [disabled]="curPage === maxPage"
+            class="btn btn-outline-success"
+            [attr.data-page]="curPage + 1"
+            (click)="paginate($event)"
+            aria-label="Next"
+          >
+            <span [attr.data-page]="curPage + 1" aria-hidden="true"
+              ><i
+                [attr.data-page]="curPage + 1"
+                class="fa-solid fa-angles-right"
+              ></i
+            ></span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

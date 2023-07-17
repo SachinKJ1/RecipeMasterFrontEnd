@@ -1,0 +1,22 @@
+.nav_styles {
+  background-color: #d6ff99;
+}
+
+.input_style {
+  border: none;
+  outline: none;
+}
+.btn_color {
+  background-color: #d6ff99;
+  width: 9rem;
+}
+
+@media (max-width: 430px) {
+  .btn_color {
+    font-size: 0.6rem;
+    width: 6rem;
+  }
+  .input_style{
+    width: 11rem;
+  }
+}

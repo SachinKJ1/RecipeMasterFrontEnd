@@ -1,0 +1,16 @@
+.card_color {
+  background-color: #f7ffeb;
+}
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.link_hover {
+  color: black;
+}
+.link_hover:hover {
+  color: rgb(16, 128, 233);
+}

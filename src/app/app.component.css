@@ -1,0 +1,12 @@
+.notify_component {
+  position: fixed;
+  bottom: 1rem;
+  right: 2rem;
+}
+
+.spinner_component {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
